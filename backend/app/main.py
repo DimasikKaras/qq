@@ -5,8 +5,6 @@ from .config import settings
 from .database import Base, engine
 from .routers import auth, equipment, facilities, inspections, inspectors, users
 
-Base.metadata.create_all(bind=engine)
-
 app = FastAPI(title='ПожНадзор.pro API')
 
 app.add_middleware(
@@ -23,6 +21,11 @@ app.include_router(inspectors.router)
 app.include_router(facilities.router)
 app.include_router(equipment.router)
 app.include_router(inspections.router)
+
+
+@app.on_event('startup')
+def startup_create_tables():
+    Base.metadata.create_all(bind=engine)
 
 
 @app.get('/health')

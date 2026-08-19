@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date as date_type
 
 from pydantic import BaseModel, ConfigDict, EmailStr, Field
 
@@ -35,7 +35,7 @@ class LoginRequest(BaseModel):
 
 class InspectionBase(BaseModel):
     facility_id: int
-    date: date
+    date: date_type
     result: InspectionResultEnum
     violations: str | None = None
 
@@ -45,7 +45,7 @@ class InspectionCreate(InspectionBase):
 
 
 class InspectionUpdate(BaseModel):
-    date: date | None = None
+    date: date_type | None = None
     result: InspectionResultEnum | None = None
     violations: str | None = None
 
@@ -84,6 +84,6 @@ class EquipmentOut(BaseModel):
     facility_id: int
     type: str
     status: EquipmentStatusEnum
-    last_check_date: date
+    last_check_date: date_type
 
     model_config = ConfigDict(from_attributes=True)

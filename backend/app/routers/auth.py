@@ -141,4 +141,4 @@ def logout(request: Request, response: Response, db: Session = Depends(get_db), 
             db.commit()
 
     response.delete_cookie(REFRESH_COOKIE_NAME, path='/auth')
-    return Response(status_code=status.HTTP_204_NO_CONTENT)
+    return response
